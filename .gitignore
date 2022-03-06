@@ -1,0 +1,9 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs
+/AareonTechnicalTest/.vs/AareonTechnicalTest
+/AareonTechnicalTest/AareonTechnicalTest/bin/Debug/net5.0
+/AareonTechnicalTest/AareonTechnicalTest/obj
+*.user
