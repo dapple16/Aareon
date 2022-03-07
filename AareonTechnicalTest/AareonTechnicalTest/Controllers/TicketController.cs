@@ -20,5 +20,29 @@ namespace AareonTechnicalTest.Controllers
 		{
 			return Ok();
 		}
+
+		[HttpGet("{id}")]
+		public IActionResult GetById(int id)
+		{
+			return Ok();
+		}
+
+		[HttpPut("update/{id}")]
+		public IActionResult Put(int id, [FromBody] TicketModel model)
+		{
+			return Ok();
+		}
+
+		[HttpPost("Create")]
+		public IActionResult Create([FromBody]TicketModel model)
+		{
+			return Ok();
+		}
+
+		[HttpDelete("{id}")]
+		public IActionResult Delete(int id)
+		{
+			return Ok();
+		}
 	}
 }
