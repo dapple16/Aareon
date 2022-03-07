@@ -19,7 +19,7 @@ namespace AareonTechnicalTest.BL
 			throw new System.NotImplementedException();
 		}
 
-		public bool Put(TicketModel model)
+		public bool Put(int id, TicketModel model)
 		{
 			throw new System.NotImplementedException();
 		}
