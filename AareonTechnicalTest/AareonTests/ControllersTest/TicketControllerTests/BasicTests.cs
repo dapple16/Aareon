@@ -20,7 +20,7 @@ namespace AareonTests.ControllersTest.TicketControllerTests
 			var sut = new TicketController();
 			var result = sut.Get();
 
-			Assert.IsType<IActionResult>(result);
+			_ = Assert.IsAssignableFrom<IActionResult>(result);
 		}
 	}
 }
