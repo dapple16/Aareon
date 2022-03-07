@@ -47,21 +47,48 @@ namespace AareonTechnicalTest.Controllers
 		}
 
 		[HttpPut("update/{id}")]
-		public IActionResult Put(int id, [FromBody] TicketModel model)
+		public async Task<IActionResult> Put(int id, [FromBody] TicketModel model)
 		{
-			return Ok();
+			try
+			{
+				var result = await _crudBlProvider.Put(id, model);
+				return Ok(result);
+			}
+			catch (Exception ex)
+			{
+				// Log the exception on the logger.
+			}
+			return NoContent();
 		}
 
 		[HttpPost("Create")]
-		public IActionResult Create([FromBody]TicketModel model)
+		public async Task<IActionResult> Create([FromBody]TicketModel model)
 		{
-			return Ok();
+			try
+			{
+				var result = await _crudBlProvider.Create(model);
+				return Ok(result);
+			}
+			catch (Exception ex)
+			{
+				// Log the exception on the logger.
+			}
+			return NoContent();
 		}
 
 		[HttpDelete("{id}")]
-		public IActionResult Delete(int id)
+		public async Task<IActionResult> Delete(int id)
 		{
-			return Ok();
+			try
+			{
+				var result = await _crudBlProvider.Delete(id);
+				return Ok(result);
+			}
+			catch (Exception ex)
+			{
+				// Log the exception on the logger.
+			}
+			return NoContent();
 		}
 	}
 }

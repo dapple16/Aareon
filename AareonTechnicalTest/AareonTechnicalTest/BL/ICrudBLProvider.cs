@@ -5,8 +5,8 @@ namespace AareonTechnicalTest.BL
 	{
 		Task<T> Get();
 		Task<T> Get(int id);
-		bool Put(int id, T model);
-		bool Create(T model);
-		bool Delete(int id);
+		Task<bool> Put(int id, T model);
+		Task<bool> Create(T model);
+		Task<bool> Delete(int id);
 	}
 }

@@ -9,7 +9,7 @@ using Xunit;
 
 namespace AareonTests.ControllersTests.TicketControllerTests
 {
-	public class GetTests
+	public class DeleteTests
 	{
 		private Mock<ICrudBLProvider<TicketModel>> _crudBlMock;
 		private TicketController InitialiseConstructor()
@@ -19,43 +19,45 @@ namespace AareonTests.ControllersTests.TicketControllerTests
 		}
 
 		[Fact]
-		public void Get_returns_Ok()
+		public void Delete_returns_Ok()
 		{
 			_crudBlMock = new Mock<ICrudBLProvider<TicketModel>>();
 			TicketController sut = InitialiseConstructor();
-			var result = sut.Get().Result;
+			var ticketModel = new TicketModel();
+			var result = sut.Delete(0);
+
 			_ = Assert.IsAssignableFrom<IActionResult>(result);
 		}
 
 		[Fact]
-		public void Get_VerifyCrudProviderGetIsCalled()
+		public void Delete_VerifyCrudProviderIsCalled()
+		{
+			TicketController sut = InitialiseConstructor();
+			var result = sut.Delete(1);
+			_crudBlMock.Verify(v => v.Delete(It.IsAny<int>()), Times.Once);
+		}
+
+
+		[Fact]
+		public void Delete_returnsTrueOnSuccess()
 		{
 			_crudBlMock = new Mock<ICrudBLProvider<TicketModel>>();
+			_crudBlMock.Setup(s => s.Delete(1)).Returns(Task.FromResult(true));
 			TicketController sut = InitialiseConstructor();
-			var result = sut.Get();
-			_crudBlMock.Verify(v => v.Get(), Times.Once);
+
+			var result = sut.Delete(1).Result as OkObjectResult;
+
+			_ = Assert.IsAssignableFrom<bool>(result.Value);
 		}
 
 		[Fact]
-		public void Get_returnsModelOnSuccess()
+		public void Delete_returnsNoContentOnFail()
 		{
 			_crudBlMock = new Mock<ICrudBLProvider<TicketModel>>();
-			_crudBlMock.Setup(s => s.Get()).Returns(Task.FromResult(new TicketModel()));
+			_crudBlMock.Setup(s => s.Delete(1)).Returns(() => throw new Exception());
 			TicketController sut = InitialiseConstructor();
 
-			var result = sut.Get().Result as OkObjectResult;
-
-			_ = Assert.IsAssignableFrom<TicketModel>(result.Value);
-		}
-
-		[Fact]
-		public void Get_returnsNoContentOnFail()
-		{
-			_crudBlMock = new Mock<ICrudBLProvider<TicketModel>>();
-			_crudBlMock.Setup(s => s.Get()).Returns(() => throw new Exception());
-			TicketController sut = InitialiseConstructor();
-
-			var result = sut.Get().Result;
+			var result = sut.Delete(1);
 
 			_ = Assert.IsAssignableFrom<NoContentResult>(result);
 		}

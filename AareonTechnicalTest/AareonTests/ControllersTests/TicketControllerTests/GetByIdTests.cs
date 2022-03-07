@@ -23,7 +23,7 @@ namespace AareonTests.ControllersTests.TicketControllerTests
 		{
 			_crudBlMock = new Mock<ICrudBLProvider<TicketModel>>();
 			TicketController sut = InitialiseConstructor();
-			var result = sut.GetById(1);
+			var result = sut.GetById(1).Result;
 			_ = Assert.IsAssignableFrom<IActionResult>(result);
 		}
 
@@ -49,13 +49,13 @@ namespace AareonTests.ControllersTests.TicketControllerTests
 		}
 
 		[Fact]
-		public void GeByIdt_returnsNocontentOnFail()
+		public void GetById_returnsNoContentOnFail()
 		{
 			_crudBlMock = new Mock<ICrudBLProvider<TicketModel>>();
 			_crudBlMock.Setup(s => s.Get(1)).Returns(() => throw new Exception());
 			TicketController sut = InitialiseConstructor();
 
-			var result = sut.GetById(1);
+			var result = sut.GetById(1).Result;
 
 			_ = Assert.IsAssignableFrom<NoContentResult>(result);
 		}

@@ -9,7 +9,7 @@ using Xunit;
 
 namespace AareonTests.ControllersTests.TicketControllerTests
 {
-	public class GetTests
+	public class CreateTests
 	{
 		private Mock<ICrudBLProvider<TicketModel>> _crudBlMock;
 		private TicketController InitialiseConstructor()
@@ -19,43 +19,44 @@ namespace AareonTests.ControllersTests.TicketControllerTests
 		}
 
 		[Fact]
-		public void Get_returns_Ok()
+		public void Create_returns_Ok()
 		{
 			_crudBlMock = new Mock<ICrudBLProvider<TicketModel>>();
 			TicketController sut = InitialiseConstructor();
-			var result = sut.Get().Result;
+			var ticketModel = new TicketModel();
+			var result = sut.Create(ticketModel);
+
 			_ = Assert.IsAssignableFrom<IActionResult>(result);
 		}
 
 		[Fact]
-		public void Get_VerifyCrudProviderGetIsCalled()
+		public void Create_VerifyCrudProviderIsCalled()
 		{
-			_crudBlMock = new Mock<ICrudBLProvider<TicketModel>>();
 			TicketController sut = InitialiseConstructor();
-			var result = sut.Get();
-			_crudBlMock.Verify(v => v.Get(), Times.Once);
+			var result = sut.Create(new TicketModel());
+			_crudBlMock.Verify(v => v.Create(It.IsAny<TicketModel>()), Times.Once);
 		}
 
 		[Fact]
-		public void Get_returnsModelOnSuccess()
+		public void Create_returnsTrueOnSuccess()
 		{
 			_crudBlMock = new Mock<ICrudBLProvider<TicketModel>>();
-			_crudBlMock.Setup(s => s.Get()).Returns(Task.FromResult(new TicketModel()));
+			_crudBlMock.Setup(s => s.Create(new TicketModel())).Returns(Task.FromResult(true));
 			TicketController sut = InitialiseConstructor();
 
-			var result = sut.Get().Result as OkObjectResult;
+			var result = sut.Create(new TicketModel()).Result as OkObjectResult;
 
-			_ = Assert.IsAssignableFrom<TicketModel>(result.Value);
+			_ = Assert.IsAssignableFrom<bool>(result.Value);
 		}
 
 		[Fact]
-		public void Get_returnsNoContentOnFail()
+		public void Get_returnsNocontentOnFail()
 		{
 			_crudBlMock = new Mock<ICrudBLProvider<TicketModel>>();
-			_crudBlMock.Setup(s => s.Get()).Returns(() => throw new Exception());
+			_crudBlMock.Setup(s => s.Put(1, new TicketModel())).Returns(() => throw new Exception());
 			TicketController sut = InitialiseConstructor();
 
-			var result = sut.Get().Result;
+			var result = sut.Create( new TicketModel());
 
 			_ = Assert.IsAssignableFrom<NoContentResult>(result);
 		}

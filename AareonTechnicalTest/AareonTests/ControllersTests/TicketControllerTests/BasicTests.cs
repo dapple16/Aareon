@@ -26,42 +26,6 @@ namespace AareonTests.ControllersTest.TicketControllerTests
 		}
 
 		[Fact]
-		public void Put_returns_Ok()
-		{
-			TicketController sut = InitialiseConstructor();
-			var ticketModel = new TicketModel();
-			var result = sut.Put(0, ticketModel);
-
-			_ = Assert.IsAssignableFrom<IActionResult>(result);
-		}
-
-		[Fact]
-		public void Get_VerifyCrudProviderPutIsCalled()
-		{
-			TicketController sut = InitialiseConstructor();
-			var result = sut.Get();
-			_crudBlMock.Verify(v => v.Put(It.IsAny<int>(), It.IsAny<TicketModel>()), Times.Once);
-		}
-
-		[Fact]
-		public void Create_returns_Ok()
-		{
-			TicketController sut = InitialiseConstructor();
-			var ticketModel = new TicketModel();
-			var result = sut.Create(ticketModel);
-
-			_ = Assert.IsAssignableFrom<IActionResult>(result);
-		}
-
-		[Fact]
-		public void Get_VerifyCrudProviderCreateIsCalled()
-		{
-			TicketController sut = InitialiseConstructor();
-			var result = sut.Get();
-			_crudBlMock.Verify(v => v.Create(It.IsAny<TicketModel>()), Times.Once);
-		}
-
-		[Fact]
 		public void Delete_returns_Ok()
 		{
 			TicketController sut = InitialiseConstructor();
@@ -75,7 +39,7 @@ namespace AareonTests.ControllersTest.TicketControllerTests
 		public void Get_VerifyCrudProviderDeleteIsCalled()
 		{
 			TicketController sut = InitialiseConstructor();
-			var result = sut.Get();
+			var result = sut.Delete(1);
 			_crudBlMock.Verify(v => v.Delete(It.IsAny<int>()), Times.Once);
 		}
 	}
