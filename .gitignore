@@ -7,3 +7,5 @@
 /AareonTechnicalTest/AareonTechnicalTest/bin/Debug/net5.0
 /AareonTechnicalTest/AareonTechnicalTest/obj
 *.user
+/AareonTechnicalTest/AareonTests/bin/Debug/net5.0
+/AareonTechnicalTest/AareonTests/obj
