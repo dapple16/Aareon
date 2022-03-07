@@ -5,12 +5,12 @@ namespace AareonTechnicalTest.BL
 {
 	public class TicketCrudBLProvider : ICrudBLProvider<TicketModel>
 	{
-		public bool Create(TicketModel model)
+		public async Task<bool> Create(TicketModel model)
 		{
 			throw new System.NotImplementedException();
 		}
 
-		public bool Delete(int id)
+		public async Task<bool> Delete(int id)
 		{
 			throw new System.NotImplementedException();
 		}
@@ -25,7 +25,7 @@ namespace AareonTechnicalTest.BL
 			throw new System.NotImplementedException();
 		}
 
-		public bool Put(int id, TicketModel model)
+		public async Task<bool> Put(int id, TicketModel model)
 		{
 			throw new System.NotImplementedException();
 		}

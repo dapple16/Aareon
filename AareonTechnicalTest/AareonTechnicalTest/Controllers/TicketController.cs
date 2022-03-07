@@ -24,7 +24,7 @@ namespace AareonTechnicalTest.Controllers
 			{
 				var model = await _crudBlProvider.Get();
 				return Ok(model);
-			}catch(Exception ex)
+			}catch (Exception)
 			{
 				// Log the exception on the logger.
 			}
@@ -39,7 +39,7 @@ namespace AareonTechnicalTest.Controllers
 				var model = await _crudBlProvider.Get(id);
 				return Ok(model);
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
 				// Log the exception on the logger.
 			}
@@ -54,7 +54,7 @@ namespace AareonTechnicalTest.Controllers
 				var result = await _crudBlProvider.Put(id, model);
 				return Ok(result);
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
 				// Log the exception on the logger.
 			}
@@ -69,7 +69,7 @@ namespace AareonTechnicalTest.Controllers
 				var result = await _crudBlProvider.Create(model);
 				return Ok(result);
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
 				// Log the exception on the logger.
 			}
@@ -84,7 +84,7 @@ namespace AareonTechnicalTest.Controllers
 				var result = await _crudBlProvider.Delete(id);
 				return Ok(result);
 			}
-			catch (Exception ex)
+			catch (Exception)
 			{
 				// Log the exception on the logger.
 			}
