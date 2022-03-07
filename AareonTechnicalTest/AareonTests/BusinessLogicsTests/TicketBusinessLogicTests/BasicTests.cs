@@ -1,4 +1,6 @@
-﻿using Xunit;
+﻿using AareonTechnicalTest.BL;
+using AareonTechnicalTest.BL.Models;
+using Xunit;
 
 namespace AareonTests.BusinessLogicsTests.TicketBusinessLogicTests
 {
@@ -13,8 +15,8 @@ namespace AareonTests.BusinessLogicsTests.TicketBusinessLogicTests
 		[Fact]
 		public void TicketBlConstructorInitialised()
 		{
-			var sut = new TicketBL();
-			Assert.IsAssignableFrom<ICrudBLProvider>(sut);
+			var sut = new TicketCrudBLProvider();
+			Assert.IsAssignableFrom<ICrudBLProvider<TicketModel>>(sut);
 		}
 	}
 }

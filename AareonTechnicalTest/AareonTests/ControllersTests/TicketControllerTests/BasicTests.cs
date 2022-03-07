@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Xunit;
 using Moq;
+using AareonTechnicalTest.BL;
 
 namespace AareonTests.ControllersTest.TicketControllerTests
 {
