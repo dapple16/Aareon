@@ -1,6 +1,7 @@
 ﻿using AareonTechnicalTest.BL;
 using AareonTechnicalTest.BL.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace AareonTechnicalTest.Controllers
 {
@@ -18,8 +19,15 @@ namespace AareonTechnicalTest.Controllers
 		[HttpGet]
 		public IActionResult Get()
 		{
-			
-			return Ok();
+			try
+			{
+				var model = _crudBlProvider.Get();
+				return Ok(model);
+			}catch(Exception ex)
+			{
+				// Log the exception on the logger.
+			}
+			return NoContent();
 		}
 
 		[HttpGet("{id}")]

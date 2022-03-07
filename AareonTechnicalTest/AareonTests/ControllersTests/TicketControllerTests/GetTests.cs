@@ -42,11 +42,10 @@ namespace AareonTests.ControllersTests.TicketControllerTests
 			_crudBlMock.Setup(s => s.Get()).Returns(new TicketModel());
 			TicketController sut = InitialiseConstructor();
 
-			var result = sut.Get();
+			var result = sut.Get() as OkObjectResult;
 
-			_ = Assert.IsAssignableFrom<OkResult>(result);
+			_ = Assert.IsAssignableFrom<TicketModel>(result.Value);
 		}
-
 
 		[Fact]
 		public void Get_returnsNocontentOnFail()
