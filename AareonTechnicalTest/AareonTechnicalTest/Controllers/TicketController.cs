@@ -1,6 +1,8 @@
-﻿namespace AareonTechnicalTest.Controllers
+﻿using Microsoft.AspNetCore.Mvc;
+
+namespace AareonTechnicalTest.Controllers
 {
-	public class TicketController : BaseApiController
+	public class TicketController : ControllerBase
 	{
 	}
 }

@@ -1,15 +1,10 @@
-﻿using Xunit;
+﻿using AareonTechnicalTest.Controllers;
+using Xunit;
 
 namespace AareonTests.ControllersTest.TicketControllerTests
 {
 	public class BasicTests
 	{
-		[Fact]
-		public void SmokeTest()
-		{
-			Assert.True(true);
-		}
-
 		[Fact]
 		public void TicketController_CanInitialise()
 		{
