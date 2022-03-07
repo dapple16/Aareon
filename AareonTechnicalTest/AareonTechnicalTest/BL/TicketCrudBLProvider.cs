@@ -16,7 +16,7 @@ namespace AareonTechnicalTest.BL
 		}
 
 		public async Task<TicketModel> Get()
-		{
+		{			
 			throw new System.NotImplementedException();
 		}
 

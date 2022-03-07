@@ -24,7 +24,7 @@ namespace AareonTests.ControllersTests.TicketControllerTests
 			_crudBlMock = new Mock<ICrudBLProvider<TicketModel>>();
 			TicketController sut = InitialiseConstructor();
 			var ticketModel = new TicketModel();
-			var result = sut.Delete(0);
+			var result = sut.Delete(0).Result;
 
 			_ = Assert.IsAssignableFrom<IActionResult>(result);
 		}
@@ -32,8 +32,9 @@ namespace AareonTests.ControllersTests.TicketControllerTests
 		[Fact]
 		public void Delete_VerifyCrudProviderIsCalled()
 		{
+			_crudBlMock = new Mock<ICrudBLProvider<TicketModel>>();
 			TicketController sut = InitialiseConstructor();
-			var result = sut.Delete(1);
+			var result = sut.Delete(1).Result;
 			_crudBlMock.Verify(v => v.Delete(It.IsAny<int>()), Times.Once);
 		}
 
@@ -51,13 +52,13 @@ namespace AareonTests.ControllersTests.TicketControllerTests
 		}
 
 		[Fact]
-		public void Delete_returnsNoContentOnFail()
+		public async void Delete_returnsNoContentOnFail()
 		{
 			_crudBlMock = new Mock<ICrudBLProvider<TicketModel>>();
-			_crudBlMock.Setup(s => s.Delete(1)).Returns(() => throw new Exception());
+			_crudBlMock.Setup(s => s.Delete(1)).ThrowsAsync(new Exception());
 			TicketController sut = InitialiseConstructor();
 
-			var result = sut.Delete(1);
+			var result = await sut.Delete(1);
 
 			_ = Assert.IsAssignableFrom<NoContentResult>(result);
 		}

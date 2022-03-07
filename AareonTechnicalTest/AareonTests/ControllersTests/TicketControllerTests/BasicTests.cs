@@ -24,23 +24,5 @@ namespace AareonTests.ControllersTest.TicketControllerTests
 			var sut = new TicketController(Mock.Of<ICrudBLProvider<TicketModel>>());
 			Assert.NotNull(sut);
 		}
-
-		[Fact]
-		public void Delete_returns_Ok()
-		{
-			TicketController sut = InitialiseConstructor();
-			var ticketId = 1;
-			var result = sut.Delete(ticketId);
-
-			_ = Assert.IsAssignableFrom<IActionResult>(result);
-		}
-
-		[Fact]
-		public void Get_VerifyCrudProviderDeleteIsCalled()
-		{
-			TicketController sut = InitialiseConstructor();
-			var result = sut.Delete(1);
-			_crudBlMock.Verify(v => v.Delete(It.IsAny<int>()), Times.Once);
-		}
 	}
 }

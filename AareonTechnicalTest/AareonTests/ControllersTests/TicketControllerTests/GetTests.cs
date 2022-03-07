@@ -49,13 +49,13 @@ namespace AareonTests.ControllersTests.TicketControllerTests
 		}
 
 		[Fact]
-		public void Get_returnsNoContentOnFail()
+		public async void Get_returnsNoContentOnFail()
 		{
 			_crudBlMock = new Mock<ICrudBLProvider<TicketModel>>();
-			_crudBlMock.Setup(s => s.Get()).Returns(() => throw new Exception());
+			_crudBlMock.Setup(s => s.Get()).ThrowsAsync(new Exception());
 			TicketController sut = InitialiseConstructor();
 
-			var result = sut.Get().Result;
+			var result = await sut.Get();
 
 			_ = Assert.IsAssignableFrom<NoContentResult>(result);
 		}

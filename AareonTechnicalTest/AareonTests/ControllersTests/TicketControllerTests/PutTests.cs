@@ -24,7 +24,7 @@ namespace AareonTests.ControllersTests.TicketControllerTests
 			_crudBlMock = new Mock<ICrudBLProvider<TicketModel>>();
 			TicketController sut = InitialiseConstructor();
 			var ticketModel = new TicketModel();
-			var result = sut.Put(0, ticketModel);
+			var result = sut.Put(0, ticketModel).Result;
 
 			_ = Assert.IsAssignableFrom<IActionResult>(result);
 		}
@@ -32,8 +32,9 @@ namespace AareonTests.ControllersTests.TicketControllerTests
 		[Fact]
 		public void Put_VerifyCrudProviderIsCalled()
 		{
+			_crudBlMock = new Mock<ICrudBLProvider<TicketModel>>();
 			TicketController sut = InitialiseConstructor();
-			var result = sut.Put(1, new TicketModel());
+			var result = sut.Put(1, new TicketModel()).Result;
 			_crudBlMock.Verify(v => v.Put(It.IsAny<int>(), It.IsAny<TicketModel>()), Times.Once);
 		}
 
@@ -51,13 +52,13 @@ namespace AareonTests.ControllersTests.TicketControllerTests
 		}
 
 		[Fact]
-		public void Put_returnsNoContentOnFail()
+		public async void Put_returnsNoContentOnFail()
 		{
 			_crudBlMock = new Mock<ICrudBLProvider<TicketModel>>();
-			_crudBlMock.Setup(s => s.Put(1, new TicketModel())).Returns(() => throw new Exception());
+			_crudBlMock.Setup(s => s.Put(It.IsAny<int>(), It.IsAny<TicketModel>())).ThrowsAsync(new Exception());
 			TicketController sut = InitialiseConstructor();
 
-			var result = sut.Put(1, new TicketModel());
+			var result = await sut.Put(1, new TicketModel());
 
 			_ = Assert.IsAssignableFrom<NoContentResult>(result);
 		}
