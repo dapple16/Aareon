@@ -1,5 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System.Threading.Tasks;
+﻿using AareonTechnicalTest.BL;
+using AareonTechnicalTest.BL.Models;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AareonTechnicalTest.Controllers
 {
@@ -7,6 +8,13 @@ namespace AareonTechnicalTest.Controllers
 	[ApiController]
 	public class TicketController : ControllerBase
 	{
+		private readonly ICrudBLProvider<TicketModel> crudBlProvider;
+
+		public TicketController(ICrudBLProvider<TicketModel> crudBlProvider)
+		{
+			this.crudBlProvider = crudBlProvider;
+		}
+
 		[HttpGet]
 		public IActionResult Get()
 		{
