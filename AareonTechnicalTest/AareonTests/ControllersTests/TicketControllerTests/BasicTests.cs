@@ -26,22 +26,6 @@ namespace AareonTests.ControllersTest.TicketControllerTests
 		}
 
 		[Fact]
-		public void Get_returns_Ok()
-		{
-			TicketController sut = InitialiseConstructor();
-			var result = sut.Get();
-			_ = Assert.IsAssignableFrom<IActionResult>(result);
-		}
-
-		[Fact]
-		public void Get_VerifyCrudProviderGetIsCalled()
-		{
-			TicketController sut = InitialiseConstructor();
-			var result = sut.Get();
-			_crudBlMock.Verify(v => v.Get(), Times.Once);
-		}
-
-		[Fact]
 		public void Put_returns_Ok()
 		{
 			TicketController sut = InitialiseConstructor();

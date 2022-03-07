@@ -8,16 +8,17 @@ namespace AareonTechnicalTest.Controllers
 	[ApiController]
 	public class TicketController : ControllerBase
 	{
-		private readonly ICrudBLProvider<TicketModel> crudBlProvider;
+		private readonly ICrudBLProvider<TicketModel> _crudBlProvider;
 
 		public TicketController(ICrudBLProvider<TicketModel> crudBlProvider)
 		{
-			this.crudBlProvider = crudBlProvider;
+			_crudBlProvider = crudBlProvider;
 		}
 
 		[HttpGet]
 		public IActionResult Get()
 		{
+			
 			return Ok();
 		}
 
