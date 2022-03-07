@@ -1,4 +1,5 @@
 ﻿using AareonTechnicalTest.BL.Models;
+using System.Threading.Tasks;
 
 namespace AareonTechnicalTest.BL
 {
@@ -14,7 +15,12 @@ namespace AareonTechnicalTest.BL
 			throw new System.NotImplementedException();
 		}
 
-		public TicketModel Get()
+		public async Task<TicketModel> Get()
+		{
+			throw new System.NotImplementedException();
+		}
+
+		public async Task<TicketModel> Get(int id)
 		{
 			throw new System.NotImplementedException();
 		}

@@ -9,7 +9,7 @@ using Xunit;
 
 namespace AareonTests.ControllersTests.TicketControllerTests
 {
-	public class GetTests
+	public class GetByIdTests
 	{
 		private Mock<ICrudBLProvider<TicketModel>> _crudBlMock;
 		private TicketController InitialiseConstructor()
@@ -19,43 +19,43 @@ namespace AareonTests.ControllersTests.TicketControllerTests
 		}
 
 		[Fact]
-		public void Get_returns_Ok()
+		public void GetById_returns_Ok()
 		{
 			_crudBlMock = new Mock<ICrudBLProvider<TicketModel>>();
 			TicketController sut = InitialiseConstructor();
-			var result = sut.Get();
+			var result = sut.GetById(1);
 			_ = Assert.IsAssignableFrom<IActionResult>(result);
 		}
 
 		[Fact]
-		public void Get_VerifyCrudProviderGetIsCalled()
+		public void GetById_VerifyCrudProviderGetIsCalled()
 		{
 			_crudBlMock = new Mock<ICrudBLProvider<TicketModel>>();
 			TicketController sut = InitialiseConstructor();
-			var result = sut.Get();
-			_crudBlMock.Verify(v => v.Get(), Times.Once);
+			var result = sut.GetById(1);
+			_crudBlMock.Verify(v => v.Get(It.IsAny<int>()), Times.Once);
 		}
 
 		[Fact]
-		public void Get_returnsModelOnSuccess()
+		public void GetById_returnsModelOnSuccess()
 		{
 			_crudBlMock = new Mock<ICrudBLProvider<TicketModel>>();
-			_crudBlMock.Setup(s => s.Get()).Returns(Task.FromResult(new TicketModel()));
+			_crudBlMock.Setup(s => s.Get(1)).Returns(Task.FromResult(new TicketModel()));
 			TicketController sut = InitialiseConstructor();
 
-			var result = sut.Get().Result as OkObjectResult;
+			var result = sut.GetById(1).Result as OkObjectResult;
 
 			_ = Assert.IsAssignableFrom<TicketModel>(result.Value);
 		}
 
 		[Fact]
-		public void Get_returnsNocontentOnFail()
+		public void GeByIdt_returnsNocontentOnFail()
 		{
 			_crudBlMock = new Mock<ICrudBLProvider<TicketModel>>();
-			_crudBlMock.Setup(s => s.Get()).Returns(() => throw new Exception());
+			_crudBlMock.Setup(s => s.Get(1)).Returns(() => throw new Exception());
 			TicketController sut = InitialiseConstructor();
 
-			var result = sut.Get();
+			var result = sut.GetById(1);
 
 			_ = Assert.IsAssignableFrom<NoContentResult>(result);
 		}

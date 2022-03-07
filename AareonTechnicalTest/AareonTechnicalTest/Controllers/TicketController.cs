@@ -2,6 +2,7 @@
 using AareonTechnicalTest.BL.Models;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Threading.Tasks;
 
 namespace AareonTechnicalTest.Controllers
 {
@@ -17,11 +18,11 @@ namespace AareonTechnicalTest.Controllers
 		}
 
 		[HttpGet]
-		public IActionResult Get()
+		public async Task<IActionResult> Get()
 		{
 			try
 			{
-				var model = _crudBlProvider.Get();
+				var model = await _crudBlProvider.Get();
 				return Ok(model);
 			}catch(Exception ex)
 			{
@@ -31,9 +32,18 @@ namespace AareonTechnicalTest.Controllers
 		}
 
 		[HttpGet("{id}")]
-		public IActionResult GetById(int id)
+		public async Task<IActionResult> GetById(int id)
 		{
-			return Ok();
+			try
+			{
+				var model = await _crudBlProvider.Get(id);
+				return Ok(model);
+			}
+			catch (Exception ex)
+			{
+				// Log the exception on the logger.
+			}
+			return NoContent();
 		}
 
 		[HttpPut("update/{id}")]
