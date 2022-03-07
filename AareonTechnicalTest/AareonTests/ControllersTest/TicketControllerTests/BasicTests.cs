@@ -13,9 +13,9 @@ namespace AareonTests.ControllersTest.TicketControllerTests
 		[Fact]
 		public void TicketController_CanInitialise()
 		{
-			//var ticketController = new TicketController();
+			var ticketController = new TicketController();
 
-			//Assert.NotNull(ticketController);
+			Assert.NotNull(ticketController);
 		}
 	}
 }
