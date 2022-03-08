@@ -1,3 +1,6 @@
+using AareonTechnicalTest.BL;
+using AareonTechnicalTest.BL.Models;
+using AareonTechnicalTest.DAL;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -8,7 +11,7 @@ using Microsoft.OpenApi.Models;
 
 namespace AareonTechnicalTest
 {
-    public class Startup
+	public class Startup
     {
         public Startup(IConfiguration configuration)
         {
@@ -27,6 +30,9 @@ namespace AareonTechnicalTest
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "AareonTechnicalTest", Version = "v1" });
             });
+
+            services.AddScoped<ICrudBLProvider<TicketModel>,TicketCrudBLProvider>();
+            services.AddScoped<ITicketRepository, TicketRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
