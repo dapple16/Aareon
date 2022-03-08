@@ -1,6 +1,7 @@
 using AareonTechnicalTest.BL;
 using AareonTechnicalTest.BL.Models;
 using AareonTechnicalTest.DAL;
+using AareonTechnicalTest.Helper;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -16,6 +17,7 @@ namespace AareonTechnicalTest
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            AutoMapperHelper.Configure();
         }
 
         public IConfiguration Configuration { get; }

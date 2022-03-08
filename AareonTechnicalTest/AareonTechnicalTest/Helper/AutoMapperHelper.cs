@@ -11,8 +11,11 @@ namespace AareonTechnicalTest.Helper
 		{
 			var config = new MapperConfiguration(cfg =>
 			{
-				cfg.CreateMap<Ticket, TicketModel>().ReverseMap();
+				cfg.CreateMap<Ticket, TicketModel>();
+				cfg.CreateMap<TicketModel, Ticket>();
 			});
+
+			Mapper = new Mapper(config);
 		}
 
 		public static TDest Map<TSource, TDest>(TSource source)

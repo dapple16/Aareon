@@ -1,5 +1,7 @@
 ﻿using AareonTechnicalTest.BL;
 using AareonTechnicalTest.BL.Models;
+using AareonTechnicalTest.DAL;
+using Moq;
 using Xunit;
 
 namespace AareonTests.BusinessLogicsTests.TicketBusinessLogicTests
@@ -15,7 +17,7 @@ namespace AareonTests.BusinessLogicsTests.TicketBusinessLogicTests
 		[Fact]
 		public void TicketBlConstructorInitialised()
 		{
-			var sut = new TicketCrudBLProvider();
+			var sut = new TicketCrudBLProvider(Mock.Of<ITicketRepository>());
 			Assert.IsAssignableFrom<ICrudBLProvider<TicketModel>>(sut);
 		}
 	}

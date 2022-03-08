@@ -7,5 +7,6 @@ namespace AareonTechnicalTest.DAL
 	{
 		Task<IEnumerable<T>> Find();
 		Task<T> FindById(int id);
+		Task<bool> Add(T entity);
 	}
 }

@@ -4,6 +4,7 @@ using AareonTechnicalTest.Controllers;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -40,7 +41,11 @@ namespace AareonTests.ControllersTests.TicketControllerTests
 		public void Get_returnsModelOnSuccess()
 		{
 			_crudBlMock = new Mock<ICrudBLProvider<TicketModel>>();
-			_crudBlMock.Setup(s => s.Get()).Returns(Task.FromResult(new TicketModel()));
+			var retVal = new List<TicketModel> 
+			{ 
+				new TicketModel() 
+			};
+			_crudBlMock.Setup(s => s.Get()).Returns(Task.FromResult(retVal as IEnumerable<TicketModel>));
 			TicketController sut = InitialiseConstructor();
 
 			var result = sut.Get().Result as OkObjectResult;

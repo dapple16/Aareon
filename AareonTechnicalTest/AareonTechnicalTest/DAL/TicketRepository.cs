@@ -32,5 +32,60 @@ namespace AareonTechnicalTest.DAL
 
 			return ticket;
 		}
+
+
+		public async Task<bool> Add(Ticket ticket)
+		{
+			var result = false;
+			using (var context = new ApplicationContext(options))
+			{
+				var temp = await context.Tickets.AddAsync(ticket);
+				var temp2 = await context.SaveChangesAsync();
+				result = true;
+			}
+
+			return result;
+		}
+	}
+
+	public class PersonRepository : IPersonRepository
+	{
+		DbContextOptions<ApplicationContext> options = new DbContextOptions<ApplicationContext>();
+		public async Task<IEnumerable<Person>> Find()
+		{
+			IEnumerable<Person> results = Enumerable.Empty<Person>();
+
+			using (var context = new ApplicationContext(options))
+			{
+				var temp = await context.Persons.ToListAsync();
+				results = temp;
+			}
+
+			return results;
+		}
+
+		public async Task<Person> FindById(int id)
+		{
+			Person person = null;
+			using (var context = new ApplicationContext(options))
+			{
+				person = await context.Persons.FindAsync(id);
+			}
+
+			return person;
+		}
+
+		public async Task<bool> Add(Person person)
+		{
+			var result = false;
+			using (var context = new ApplicationContext(options))
+			{
+				var temp = await context.Persons.AddAsync(person);
+				var temp2 = await context.SaveChangesAsync();
+				result = true;
+			}
+
+			return result;
+		}
 	}
 }
