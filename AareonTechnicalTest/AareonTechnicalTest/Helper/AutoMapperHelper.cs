@@ -22,5 +22,10 @@ namespace AareonTechnicalTest.Helper
 		{
 			return Mapper.Map<TSource, TDest>(source);
 		}
+
+		public static TDest Map<TSource, TDest>(TSource source, TDest dest)
+		{
+			return Mapper.Map(source, dest);
+		}
 	}
 }

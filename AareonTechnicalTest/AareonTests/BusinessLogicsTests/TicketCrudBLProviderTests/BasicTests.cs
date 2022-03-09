@@ -90,7 +90,7 @@ namespace AareonTests.BusinessLogicsTests.TicketBusinessLogicTests
 
 			var result = await sut.Get();
 
-			Assert.Equal("MyContent", result.FirstOrDefault().Content);
+			Assert.Equal("MyContent_1", result.FirstOrDefault().Content);
 
 		}
 

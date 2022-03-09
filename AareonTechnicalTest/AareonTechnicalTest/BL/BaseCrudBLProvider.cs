@@ -6,36 +6,43 @@ using System.Threading.Tasks;
 
 namespace AareonTechnicalTest.BL
 {
-	public class BaseCrudBLProvider<TModel, TDao> : ICrudBLProvider<TModel>
+	public class BaseCrudBLProvider<TModel, TEntity> : ICrudBLProvider<TModel>
 	{
-		protected IRepository<TDao> Repository;
+		protected IRepository<TEntity> Repository;
 
 		public async Task<IEnumerable<TModel>> Get()
 		{
 			var data = await Repository.Find();
-			var value = data.Select(s => AutoMapperHelper.Map<TDao, TModel>(s));
+			var value = data.Select(s => AutoMapperHelper.Map<TEntity, TModel>(s));
 			return value;
 		}
 
-		public Task<TModel> Get(int id)
+		public async Task<TModel> Get(int id)
 		{
-			throw new System.NotImplementedException();
+			var data = await Repository.FindById(id);
+			var value = AutoMapperHelper.Map<TEntity, TModel>(data);
+			return value;
 		}
 
-		public Task<bool> Put(int id, TModel model)
+		public async Task<bool> Put(int id, TModel model)
 		{
-			throw new System.NotImplementedException();
+			var existingRecord = await Repository.FindById(id);
+			var toBeSavedRecord = AutoMapperHelper.Map(model, existingRecord);
+			var value = await Repository.Update(toBeSavedRecord);
+			return value;
 		}
 
 		public async Task<bool> Create(TModel model)
 		{
-			var result = await Repository.Add(AutoMapperHelper.Map<TModel, TDao>(model));
+			var result = await Repository.Add(AutoMapperHelper.Map<TModel, TEntity>(model));
 			return result;
 		}
 
-		public Task<bool> Delete(int id)
+		public async Task<bool> Delete(int id)
 		{
-			throw new System.NotImplementedException();
+			var existingRecord = await Repository.FindById(id); 
+			var value = await Repository.Remove(existingRecord);
+			return value;
 		}
 	}
 }
