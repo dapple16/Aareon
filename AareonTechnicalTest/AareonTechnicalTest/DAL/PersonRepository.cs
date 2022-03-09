@@ -59,13 +59,12 @@ namespace AareonTechnicalTest.DAL
 		}
 
 
-		public async Task<bool> Delete(int id)
+		public async Task<bool> Remove(Person person)
 		{
 			var result = false;
 			using (var context = new ApplicationContext(options))
 			{
-				var entity = context.Persons.Find(id);
-				var _ = context.Persons.Remove(entity);
+				var _ = context.Persons.Remove(person);
 				var state = await context.SaveChangesAsync();
 				result = state > 0 ? true : false;
 			}

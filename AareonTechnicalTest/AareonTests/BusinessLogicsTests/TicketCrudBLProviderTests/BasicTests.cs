@@ -66,7 +66,6 @@ namespace AareonTests.BusinessLogicsTests.TicketBusinessLogicTests
 
 		}
 
-
 		[Fact]
 		public async void GetReturnsValidTicketModel()
 		{
@@ -95,7 +94,6 @@ namespace AareonTests.BusinessLogicsTests.TicketBusinessLogicTests
 
 		}
 
-
 		[Fact]
 		public async void GetByIdReturnsTicketModel()
 		{
@@ -114,6 +112,56 @@ namespace AareonTests.BusinessLogicsTests.TicketBusinessLogicTests
 
 			Assert.Equal("MyContent_2", result.Content);
 
+		}
+
+		[Fact]
+		public async void UpdateTicketModel()
+		{
+			_ticketRepository = new Mock<ITicketRepository>();
+			_ticketRepository.Setup(s => s.Update(It.IsAny<Ticket>())).Returns(Task.FromResult(true));
+
+			var ticketModel = new TicketModel()
+			{
+				Content = "MyContent_1",
+				PersonId = 1
+			};
+			TicketCrudBLProvider sut = InitialiseContructor();
+			var result = await sut.Put(1, ticketModel);
+
+			Assert.True(result);
+		}
+
+		//TODO: needs more tests on failure path of update
+
+		[Fact]
+		public async void AddTicketModel()
+		{
+			_ticketRepository = new Mock<ITicketRepository>();
+			_ticketRepository.Setup(s => s.Add(It.IsAny<Ticket>())).Returns(Task.FromResult(true));
+
+			var ticketModel = new TicketModel()
+			{
+				Content = "MyContent_1",
+				PersonId = 1
+			};
+			TicketCrudBLProvider sut = InitialiseContructor();
+			var result = await sut.Create(ticketModel);
+
+			Assert.True(result);
+		}
+
+		//TODO: needs more tests on failure path of add
+
+		[Fact]
+		public async void DeleteTicketModel()
+		{
+			_ticketRepository = new Mock<ITicketRepository>();
+			_ticketRepository.Setup(s => s.Remove(It.IsAny<Ticket>())).Returns(Task.FromResult(true));
+
+			TicketCrudBLProvider sut = InitialiseContructor();
+			var result = await sut.Delete(1);
+
+			Assert.True(result);
 		}
 	}
 }

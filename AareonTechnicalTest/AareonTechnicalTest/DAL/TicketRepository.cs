@@ -1,5 +1,6 @@
 ﻿using AareonTechnicalTest.Models;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -58,13 +59,12 @@ namespace AareonTechnicalTest.DAL
 			return result;
 		}
 
-		public async Task<bool> Delete(int id)
+		public async Task<bool> Remove(Ticket ticket)
 		{
 			var result = false;
 			using (var context = new ApplicationContext(options))
 			{
-				var entity = context.Tickets.Find(id);
-				var _ = context.Tickets.Remove(entity);
+				var _ = context.Tickets.Remove(ticket);
 				var state = await context.SaveChangesAsync();
 				result = state > 0 ? true : false;
 			}

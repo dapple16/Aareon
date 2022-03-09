@@ -3,12 +3,12 @@ using System.Threading.Tasks;
 
 namespace AareonTechnicalTest.DAL
 {
-	public interface IRepository<T>
+	public interface IRepository<TEntity>
 	{
-		Task<IEnumerable<T>> Find();
-		Task<T> FindById(int id);
-		Task<bool> Add(T entity);
-		Task<bool> Update(T entity);
-		Task<bool> Delete(int id);
+		Task<IEnumerable<TEntity>> Find();
+		Task<TEntity> FindById(int id);
+		Task<bool> Add(TEntity entity);
+		Task<bool> Update(TEntity entity);
+		Task<bool> Remove(TEntity entity);
 	}
 }
