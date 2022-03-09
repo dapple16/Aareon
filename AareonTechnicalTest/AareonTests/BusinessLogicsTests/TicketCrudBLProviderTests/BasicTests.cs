@@ -9,7 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace AareonTests.BusinessLogicsTests.TicketBusinessLogicTests
+namespace AareonTests.BusinessLogicsTests.TicketCrudBLProviderTests
 {
 	public class BasicTests
 	{
