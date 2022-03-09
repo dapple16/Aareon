@@ -6,38 +6,38 @@ using System.Threading.Tasks;
 
 namespace AareonTechnicalTest.DAL
 {
-	public class TicketRepository : ITicketRepository
+	public class PersonRepository : IPersonRepository
 	{
-		DbContextOptions<ApplicationContext> options = new DbContextOptions<ApplicationContext>();
-		public async Task<IEnumerable<Ticket>> Find()
+		readonly DbContextOptions<ApplicationContext> options = new DbContextOptions<ApplicationContext>();
+		public async Task<IEnumerable<Person>> Find()
 		{
-			IEnumerable<Ticket> tickets = Enumerable.Empty<Ticket>();
+			IEnumerable<Person> results = Enumerable.Empty<Person>();
 
 			using (var context = new ApplicationContext(options))
 			{
-				tickets = await context.Tickets.ToListAsync();
+				results = await context.Persons.ToListAsync();
 			}
 
-			return tickets;
+			return results;
 		}
 
-		public async Task<Ticket> FindById(int id)
+		public async Task<Person> FindById(int id)
 		{
-			Ticket ticket = null;
+			Person person = null;
 			using (var context = new ApplicationContext(options))
 			{
-				ticket = await context.Tickets.FindAsync(id);
+				person = await context.Persons.FindAsync(id);
 			}
 
-			return ticket;
+			return person;
 		}
 
-		public async Task<bool> Add(Ticket ticket)
+		public async Task<bool> Add(Person person)
 		{
 			var result = false;
 			using (var context = new ApplicationContext(options))
 			{
-				var _ = await context.Tickets.AddAsync(ticket);
+				var _ = await context.Persons.AddAsync(person);
 				var state = await context.SaveChangesAsync();
 				result = state > 0 ? true : false;
 			}
@@ -45,26 +45,27 @@ namespace AareonTechnicalTest.DAL
 			return result;
 		}
 
-		public async Task<bool> Update(Ticket ticket)
+		public async Task<bool> Update(Person person)
 		{
 			var result = false;
 			using (var context = new ApplicationContext(options))
 			{
-				var _ = context.Tickets.Update(ticket);
+				var _ = context.Persons.Update(person);
 				var state = await context.SaveChangesAsync();
 				result = state > 0 ? true : false;
 			}
 
 			return result;
 		}
+
 
 		public async Task<bool> Delete(int id)
 		{
 			var result = false;
 			using (var context = new ApplicationContext(options))
 			{
-				var entity = context.Tickets.Find(id);
-				var _ = context.Tickets.Remove(entity);
+				var entity = context.Persons.Find(id);
+				var _ = context.Persons.Remove(entity);
 				var state = await context.SaveChangesAsync();
 				result = state > 0 ? true : false;
 			}

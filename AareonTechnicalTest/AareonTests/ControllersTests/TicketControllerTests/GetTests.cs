@@ -50,7 +50,7 @@ namespace AareonTests.ControllersTests.TicketControllerTests
 
 			var result = sut.Get().Result as OkObjectResult;
 
-			_ = Assert.IsAssignableFrom<TicketModel>(result.Value);
+			_ = Assert.IsAssignableFrom<IEnumerable<TicketModel>>(result.Value);
 		}
 
 		[Fact]

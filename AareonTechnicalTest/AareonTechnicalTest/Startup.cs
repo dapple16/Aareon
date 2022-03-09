@@ -17,7 +17,7 @@ namespace AareonTechnicalTest
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
-            AutoMapperHelper.Configure();
+            AutoMapperHelper.Configure(); //TODO: Auto mapper needs to set as dependency injection with TSource and TDest, No time for it now. 
         }
 
         public IConfiguration Configuration { get; }
@@ -34,7 +34,9 @@ namespace AareonTechnicalTest
             });
 
             services.AddScoped<ICrudBLProvider<TicketModel>,TicketCrudBLProvider>();
+            services.AddScoped<ICrudBLProvider<PersonModel>, PersonCrudBLProvider>();
             services.AddScoped<ITicketRepository, TicketRepository>();
+            services.AddScoped<IPersonRepository, PersonRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

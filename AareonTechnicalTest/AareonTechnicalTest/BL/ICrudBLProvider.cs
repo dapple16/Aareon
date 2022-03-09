@@ -2,12 +2,12 @@
 using System.Threading.Tasks;
 
 namespace AareonTechnicalTest.BL
-{	public interface ICrudBLProvider<T>
+{	public interface ICrudBLProvider<TModel>
 	{
-		Task<IEnumerable<T>> Get();
-		Task<T> Get(int id);
-		Task<bool> Put(int id, T model);
-		Task<bool> Create(T model);
+		Task<IEnumerable<TModel>> Get();
+		Task<TModel> Get(int id);
+		Task<bool> Put(int id, TModel model);
+		Task<bool> Create(TModel model);
 		Task<bool> Delete(int id);
 	}
 }
