@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace AareonTechnicalTest.DAL
 {
-	public class NoteRepository : INoteRepository
+	public class NoteRepository : BaseRepository, INoteRepository
 	{
-		DbContextOptions<ApplicationContext> options = new DbContextOptions<ApplicationContext>();
 		public async Task<IEnumerable<Note>> Find()
 		{
 			IEnumerable<Note> note = Enumerable.Empty<Note>();
@@ -23,13 +22,13 @@ namespace AareonTechnicalTest.DAL
 
 		public async Task<Note> FindById(int id)
 		{
-			Note Note = null;
+			Note note = null;
 			using (var context = new ApplicationContext(options))
 			{
-				Note = await context.Notes.FindAsync(id);
+				note = await context.Notes.FindAsync(id);
 			}
 
-			return Note;
+			return note;
 		}
 
 		public async Task<bool> Add(Note Note)
@@ -38,6 +37,7 @@ namespace AareonTechnicalTest.DAL
 			using (var context = new ApplicationContext(options))
 			{
 				var _ = await context.Notes.AddAsync(Note);
+				SaveAudit(context.ChangeTracker.DebugView.LongView);
 				var state = await context.SaveChangesAsync();
 				result = state > 0 ? true : false;
 			}
@@ -51,6 +51,7 @@ namespace AareonTechnicalTest.DAL
 			using (var context = new ApplicationContext(options))
 			{
 				var _ = context.Notes.Update(Note);
+				SaveAudit(context.ChangeTracker.DebugView.LongView);
 				var state = await context.SaveChangesAsync();
 				result = state > 0 ? true : false;
 			}
@@ -63,7 +64,9 @@ namespace AareonTechnicalTest.DAL
 			var result = false;
 			using (var context = new ApplicationContext(options))
 			{
+				context.ChangeTracker.DetectChanges();
 				var _ = context.Notes.Remove(Note);
+				SaveAudit(context.ChangeTracker.DebugView.LongView);
 				var state = await context.SaveChangesAsync();
 				result = state > 0 ? true : false;
 			}
