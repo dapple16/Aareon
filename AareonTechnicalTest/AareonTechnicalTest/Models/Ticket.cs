@@ -2,7 +2,7 @@
 
 namespace AareonTechnicalTest.Models
 {
-    public class Ticket
+	public class Ticket
     {
         [Key]
         public int Id { get; }

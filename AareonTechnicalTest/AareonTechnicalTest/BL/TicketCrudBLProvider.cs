@@ -10,5 +10,5 @@ namespace AareonTechnicalTest.BL
 		{
 			Repository = ticketRepository;
 		}
-    }
+	}
 }

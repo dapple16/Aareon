@@ -2,7 +2,7 @@
 
 namespace AareonTechnicalTest.Models
 {
-    public static class TicketConfig
+	public static class TicketConfig
     {
         public static void Configure(ModelBuilder modelBuilder)
         {
