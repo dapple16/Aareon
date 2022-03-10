@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AareonTechnicalTest.BL
 {
-	public class BaseCrudBLProvider<TModel, TEntity> : ICrudBLProvider<TModel>
+	public abstract class BaseCrudBLProvider<TModel, TEntity> : ICrudBLProvider<TModel>
 	{
 		protected IRepository<TEntity> Repository;
 

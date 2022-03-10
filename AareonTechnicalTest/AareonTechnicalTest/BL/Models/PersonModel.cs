@@ -2,7 +2,7 @@
 {
 	public class PersonModel
     {
-        public int Id { get; }
+        public int Id { get; set; }
 
         public string Forename { get; set; }
 
