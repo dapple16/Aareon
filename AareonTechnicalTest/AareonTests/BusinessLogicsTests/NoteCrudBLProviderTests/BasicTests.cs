@@ -164,15 +164,18 @@ namespace AareonTests.BusinessLogicsTests.NoteCrudBLProviderTests
 			_ticketRepository.Setup(s => s.FindById(1)).Returns(Task.FromResult(new Ticket { Content = "Ticket", PersonId = 2 }));
 
 			_noteRepository = new Mock<INoteRepository>();
+			_noteRepository.Setup(s => s.FindById(5)).Returns(Task.FromResult(new Note {Description= "note", TicketId = 1 }));
 
 			_noteRepository.Setup(s => s.Remove(It.IsAny<Note>())).Returns(Task.FromResult(true));
 
 			NoteCrudBLProvider sut = InitialiseContructor();
-			var result = await sut.Delete(1);
+			var result = await sut.Delete(5);
 
 			_ticketRepository.Verify(v => v.FindById(1), Times.Once);
 			_personRepository.Verify(v => v.FindById(2), Times.Once);
 			Assert.True(result);
 		}
+
+		//TODO: needs more tests on failure path of delete note
 	}
 }

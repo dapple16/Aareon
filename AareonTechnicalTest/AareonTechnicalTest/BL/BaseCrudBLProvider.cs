@@ -38,7 +38,7 @@ namespace AareonTechnicalTest.BL
 			return result;
 		}
 
-		public async Task<bool> Delete(int id)
+		public virtual async Task<bool> Delete(int id)
 		{
 			var existingRecord = await Repository.FindById(id); 
 			var value = await Repository.Remove(existingRecord);
