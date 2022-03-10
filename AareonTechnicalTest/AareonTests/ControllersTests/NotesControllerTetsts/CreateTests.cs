@@ -12,9 +12,9 @@ namespace AareonTests.ControllersTests.NotesControllerTetsts
 	public class CreateTests
 	{
 		private Mock<ICrudBLProvider<NoteModel>> _crudBlMock;
-		private TicketController InitialiseConstructor()
+		private NoteController InitialiseConstructor()
 		{
-			var sut = new TicketController(_crudBlMock.Object);
+			var sut = new NoteController(_crudBlMock.Object);
 			return sut;
 		}
 
@@ -22,7 +22,7 @@ namespace AareonTests.ControllersTests.NotesControllerTetsts
 		public void Create_returns_Ok()
 		{
 			_crudBlMock = new Mock<ICrudBLProvider<NoteModel>>();
-			TicketController sut = InitialiseConstructor();
+			NoteController sut = InitialiseConstructor();
 			var model = new NoteModel();
 			var result = sut.Create(model).Result;
 
@@ -33,7 +33,7 @@ namespace AareonTests.ControllersTests.NotesControllerTetsts
 		public void Create_VerifyCrudProviderIsCalled()
 		{
 			_crudBlMock = new Mock<ICrudBLProvider<NoteModel>>();
-			TicketController sut = InitialiseConstructor();
+			NoteController sut = InitialiseConstructor();
 			var result = sut.Create(new NoteModel()).Result;
 			_crudBlMock.Verify(v => v.Create(It.IsAny<NoteModel>()), Times.Once);
 		}
@@ -43,7 +43,7 @@ namespace AareonTests.ControllersTests.NotesControllerTetsts
 		{
 			_crudBlMock = new Mock<ICrudBLProvider<NoteModel>>();
 			_crudBlMock.Setup(s => s.Create(new NoteModel())).Returns(Task.FromResult(true));
-			TicketController sut = InitialiseConstructor();
+			NoteController sut = InitialiseConstructor();
 
 			var result = sut.Create(new NoteModel()).Result as OkObjectResult;
 
@@ -55,7 +55,7 @@ namespace AareonTests.ControllersTests.NotesControllerTetsts
 		{
 			_crudBlMock = new Mock<ICrudBLProvider<NoteModel>>();
 			_crudBlMock.Setup(s => s.Create(It.IsAny<NoteModel>())).ThrowsAsync(new Exception());
-			TicketController sut = InitialiseConstructor();
+			NoteController sut = InitialiseConstructor();
 
 			var result = await sut.Create(new NoteModel());
 
