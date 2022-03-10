@@ -14,13 +14,15 @@ namespace AareonTests.BusinessLogicsTests.NoteCrudBLProviderTests
 	public class BasicTests
 	{
 		private Mock<INoteRepository> _noteRepository;
+		private Mock<ITicketRepository> _ticketRepository;
+		private Mock<IPersonRepository> _personRepository;
 		public BasicTests()
 		{
 			AutoMapperHelper.Configure();
 		}
 		private NoteCrudBLProvider InitialiseContructor()
 		{
-			return new NoteCrudBLProvider(_noteRepository.Object);
+			return new NoteCrudBLProvider(_noteRepository.Object, _ticketRepository.Object, _personRepository.Object);
 		}
 
 		[Fact]
@@ -153,14 +155,23 @@ namespace AareonTests.BusinessLogicsTests.NoteCrudBLProviderTests
 		//TODO: needs more tests on failure path of add
 
 		[Fact]
-		public async void DeleteNoteModel()
+		public async void VerifyDeleteNoteCallsPersonRepository()
 		{
+			_personRepository = new Mock<IPersonRepository>();
+			_personRepository.Setup(s => s.FindById(2)).Returns(Task.FromResult(new Person { Forename = "Tester", IsAdmin = true }));
+
+			_ticketRepository = new Mock<ITicketRepository>();
+			_ticketRepository.Setup(s => s.FindById(1)).Returns(Task.FromResult(new Ticket { Content = "Ticket", PersonId = 2 }));
+
 			_noteRepository = new Mock<INoteRepository>();
+
 			_noteRepository.Setup(s => s.Remove(It.IsAny<Note>())).Returns(Task.FromResult(true));
 
 			NoteCrudBLProvider sut = InitialiseContructor();
 			var result = await sut.Delete(1);
 
+			_ticketRepository.Verify(v => v.FindById(1), Times.Once);
+			_personRepository.Verify(v => v.FindById(2), Times.Once);
 			Assert.True(result);
 		}
 	}

@@ -6,9 +6,14 @@ namespace AareonTechnicalTest.BL
 {
 	public class NoteCrudBLProvider : BaseCrudBLProvider<NoteModel, Note>
 	{
-		public NoteCrudBLProvider(INoteRepository noteRepository)
+		private readonly ITicketRepository _ticketRepository;
+		private readonly IPersonRepository _personRepository;
+
+		public NoteCrudBLProvider(INoteRepository noteRepository, ITicketRepository ticketRepository, IPersonRepository personRepository)
 		{
 			Repository = noteRepository;
+			_ticketRepository = ticketRepository;
+			_personRepository = personRepository;
 		}
 	}
 }
