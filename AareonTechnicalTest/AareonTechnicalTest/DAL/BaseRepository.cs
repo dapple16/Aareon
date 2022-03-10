@@ -1,6 +1,5 @@
 ﻿using AareonTechnicalTest.Models;
 using Microsoft.EntityFrameworkCore;
-using System;
 
 namespace AareonTechnicalTest.DAL
 {
@@ -12,8 +11,7 @@ namespace AareonTechnicalTest.DAL
 			using (var context = new ApplicationContext(options))
 			{
 				var _ = await context.Audits.AddAsync(new Audit { Log = audit });
-				Console.Out.WriteLine(context.ChangeTracker.DebugView.LongView);
-				var state = await context.SaveChangesAsync();
+				await context.SaveChangesAsync();
 			}
 		}
 	}

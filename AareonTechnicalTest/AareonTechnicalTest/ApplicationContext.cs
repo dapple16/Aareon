@@ -34,6 +34,7 @@ namespace AareonTechnicalTest
             PersonConfig.Configure(modelBuilder);
             TicketConfig.Configure(modelBuilder);
             NoteConfig.Configure(modelBuilder);
+            AuditConfig.Configure(modelBuilder);
         }
     }
 }

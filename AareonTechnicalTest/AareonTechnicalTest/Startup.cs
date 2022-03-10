@@ -36,6 +36,8 @@ namespace AareonTechnicalTest
             services.AddScoped<ICrudBLProvider<NoteModel>, NoteCrudBLProvider>();
             services.AddScoped<ICrudBLProvider<TicketModel>,TicketCrudBLProvider>();
             services.AddScoped<ICrudBLProvider<PersonModel>, PersonCrudBLProvider>();
+            services.AddScoped<IReadOnlyCrudBLProvider<AuditModel>, AuditCrudBLProvider>();
+
             services.AddScoped<INoteRepository, NoteRepository>();
             services.AddScoped<ITicketRepository, TicketRepository>();
             services.AddScoped<IPersonRepository, PersonRepository>();
