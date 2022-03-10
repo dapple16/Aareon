@@ -33,8 +33,10 @@ namespace AareonTechnicalTest
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "AareonTechnicalTest", Version = "v1" });
             });
 
+            services.AddScoped<ICrudBLProvider<NoteModel>, NoteCrudBLProvider>();
             services.AddScoped<ICrudBLProvider<TicketModel>,TicketCrudBLProvider>();
             services.AddScoped<ICrudBLProvider<PersonModel>, PersonCrudBLProvider>();
+            services.AddScoped<INoteRepository, NoteRepository>();
             services.AddScoped<ITicketRepository, TicketRepository>();
             services.AddScoped<IPersonRepository, PersonRepository>();
         }

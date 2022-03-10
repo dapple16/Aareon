@@ -7,23 +7,22 @@ using System;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace AareonTests.ControllersTests.TicketControllerTests
+namespace AareonTests.ControllersTests.NotesControllerTetsts
 {
 	public class DeleteTests
 	{
-		private Mock<ICrudBLProvider<TicketModel>> _crudBlMock;
-		private TicketController InitialiseConstructor()
+		private Mock<ICrudBLProvider<NoteModel>> _crudBlMock;
+		private NoteController InitialiseConstructor()
 		{
-			var sut = new TicketController(_crudBlMock.Object);
+			var sut = new NoteController(_crudBlMock.Object);
 			return sut;
 		}
 
 		[Fact]
 		public void Delete_returns_Ok()
 		{
-			_crudBlMock = new Mock<ICrudBLProvider<TicketModel>>();
-			TicketController sut = InitialiseConstructor();
-			var ticketModel = new TicketModel();
+			_crudBlMock = new Mock<ICrudBLProvider<NoteModel>>();
+			NoteController sut = InitialiseConstructor();
 			var result = sut.Delete(0).Result;
 
 			_ = Assert.IsAssignableFrom<IActionResult>(result);
@@ -32,8 +31,8 @@ namespace AareonTests.ControllersTests.TicketControllerTests
 		[Fact]
 		public void Delete_VerifyCrudProviderIsCalled()
 		{
-			_crudBlMock = new Mock<ICrudBLProvider<TicketModel>>();
-			TicketController sut = InitialiseConstructor();
+			_crudBlMock = new Mock<ICrudBLProvider<NoteModel>>();
+			NoteController sut = InitialiseConstructor();
 			var result = sut.Delete(1).Result;
 			_crudBlMock.Verify(v => v.Delete(It.IsAny<int>()), Times.Once);
 		}
@@ -42,9 +41,9 @@ namespace AareonTests.ControllersTests.TicketControllerTests
 		[Fact]
 		public void Delete_returnsTrueOnSuccess()
 		{
-			_crudBlMock = new Mock<ICrudBLProvider<TicketModel>>();
+			_crudBlMock = new Mock<ICrudBLProvider<NoteModel>>();
 			_crudBlMock.Setup(s => s.Delete(1)).Returns(Task.FromResult(true));
-			TicketController sut = InitialiseConstructor();
+			NoteController sut = InitialiseConstructor();
 
 			var result = sut.Delete(1).Result as OkObjectResult;
 
@@ -54,9 +53,9 @@ namespace AareonTests.ControllersTests.TicketControllerTests
 		[Fact]
 		public async void Delete_returnsNoContentOnFail()
 		{
-			_crudBlMock = new Mock<ICrudBLProvider<TicketModel>>();
+			_crudBlMock = new Mock<ICrudBLProvider<NoteModel>>();
 			_crudBlMock.Setup(s => s.Delete(1)).ThrowsAsync(new Exception());
-			TicketController sut = InitialiseConstructor();
+			NoteController sut = InitialiseConstructor();
 
 			var result = await sut.Delete(1);
 

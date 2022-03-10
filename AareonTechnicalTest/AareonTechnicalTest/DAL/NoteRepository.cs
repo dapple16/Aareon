@@ -6,38 +6,38 @@ using System.Threading.Tasks;
 
 namespace AareonTechnicalTest.DAL
 {
-	public class PersonRepository : IPersonRepository
+	public class NoteRepository : INoteRepository
 	{
-		readonly DbContextOptions<ApplicationContext> options = new DbContextOptions<ApplicationContext>();
-		public async Task<IEnumerable<Person>> Find()
+		DbContextOptions<ApplicationContext> options = new DbContextOptions<ApplicationContext>();
+		public async Task<IEnumerable<Note>> Find()
 		{
-			IEnumerable<Person> results = Enumerable.Empty<Person>();
+			IEnumerable<Note> note = Enumerable.Empty<Note>();
 
 			using (var context = new ApplicationContext(options))
 			{
-				results = await context.Persons.ToListAsync();
+				note = await context.Notes.ToListAsync();
 			}
 
-			return results;
+			return note;
 		}
 
-		public async Task<Person> FindById(int id)
+		public async Task<Note> FindById(int id)
 		{
-			Person person = null;
+			Note Note = null;
 			using (var context = new ApplicationContext(options))
 			{
-				person = await context.Persons.FindAsync(id);
+				Note = await context.Notes.FindAsync(id);
 			}
 
-			return person;
+			return Note;
 		}
 
-		public async Task<bool> Add(Person person)
+		public async Task<bool> Add(Note Note)
 		{
 			var result = false;
 			using (var context = new ApplicationContext(options))
 			{
-				var _ = await context.Persons.AddAsync(person);
+				var _ = await context.Notes.AddAsync(Note);
 				var state = await context.SaveChangesAsync();
 				result = state > 0 ? true : false;
 			}
@@ -45,12 +45,12 @@ namespace AareonTechnicalTest.DAL
 			return result;
 		}
 
-		public async Task<bool> Update(Person person)
+		public async Task<bool> Update(Note Note)
 		{
 			var result = false;
 			using (var context = new ApplicationContext(options))
 			{
-				var _ = context.Persons.Update(person);
+				var _ = context.Notes.Update(Note);
 				var state = await context.SaveChangesAsync();
 				result = state > 0 ? true : false;
 			}
@@ -58,13 +58,12 @@ namespace AareonTechnicalTest.DAL
 			return result;
 		}
 
-
-		public async Task<bool> Remove(Person person)
+		public async Task<bool> Remove(Note Note)
 		{
 			var result = false;
 			using (var context = new ApplicationContext(options))
 			{
-				var _ = context.Persons.Remove(person);
+				var _ = context.Notes.Remove(Note);
 				var state = await context.SaveChangesAsync();
 				result = state > 0 ? true : false;
 			}

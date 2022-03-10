@@ -6,9 +6,9 @@ namespace AareonTechnicalTest.Controllers
 {
 	[Route("[controller]")]
 	[ApiController]
-	public class PersonController : BaseController<PersonModel>
+	public class NoteController : BaseController<NoteModel>
 	{
-		public PersonController(ICrudBLProvider<PersonModel> crudBLProvider) : base(crudBLProvider)
+		public NoteController(ICrudBLProvider<NoteModel> crudBLProvider) : base(crudBLProvider)
 		{ }
 	}
 }
