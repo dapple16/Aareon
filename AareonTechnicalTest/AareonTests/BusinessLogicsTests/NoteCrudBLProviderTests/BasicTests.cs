@@ -14,8 +14,8 @@ namespace AareonTests.BusinessLogicsTests.NoteCrudBLProviderTests
 	public class BasicTests
 	{
 		private Mock<INoteRepository> _noteRepository;
-		private Mock<ITicketRepository> _ticketRepository;
-		private Mock<IPersonRepository> _personRepository;
+		private Mock<ITicketRepository> _ticketRepository = new Mock<ITicketRepository>();
+		private Mock<IPersonRepository> _personRepository = new Mock<IPersonRepository>();
 		public BasicTests()
 		{
 			AutoMapperHelper.Configure();

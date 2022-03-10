@@ -20,6 +20,8 @@ namespace AareonTechnicalTest
 
         public virtual DbSet<Note> Notes { get; set; }
 
+        public virtual DbSet<Audit> Audits { get; set; }
+
         public string DatabasePath { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
@@ -32,6 +34,7 @@ namespace AareonTechnicalTest
             PersonConfig.Configure(modelBuilder);
             TicketConfig.Configure(modelBuilder);
             NoteConfig.Configure(modelBuilder);
+            AuditConfig.Configure(modelBuilder);
         }
     }
 }

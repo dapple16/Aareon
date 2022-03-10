@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace AareonTechnicalTest.DAL
 {
-	public class TicketRepository : ITicketRepository
+	public class TicketRepository : BaseRepository, ITicketRepository
 	{
-		DbContextOptions<ApplicationContext> options = new DbContextOptions<ApplicationContext>();
 		public async Task<IEnumerable<Ticket>> Find()
 		{
 			IEnumerable<Ticket> tickets = Enumerable.Empty<Ticket>();
@@ -38,6 +37,7 @@ namespace AareonTechnicalTest.DAL
 			using (var context = new ApplicationContext(options))
 			{
 				var _ = await context.Tickets.AddAsync(ticket);
+				SaveAudit(context.ChangeTracker.DebugView.LongView);
 				var state = await context.SaveChangesAsync();
 				result = state > 0 ? true : false;
 			}
@@ -51,6 +51,7 @@ namespace AareonTechnicalTest.DAL
 			using (var context = new ApplicationContext(options))
 			{
 				var _ = context.Tickets.Update(ticket);
+				SaveAudit(context.ChangeTracker.DebugView.LongView);
 				var state = await context.SaveChangesAsync();
 				result = state > 0 ? true : false;
 			}
@@ -64,6 +65,7 @@ namespace AareonTechnicalTest.DAL
 			using (var context = new ApplicationContext(options))
 			{
 				var _ = context.Tickets.Remove(ticket);
+				SaveAudit(context.ChangeTracker.DebugView.LongView);
 				var state = await context.SaveChangesAsync();
 				result = state > 0 ? true : false;
 			}

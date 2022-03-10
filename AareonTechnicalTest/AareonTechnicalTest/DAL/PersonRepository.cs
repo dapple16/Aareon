@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace AareonTechnicalTest.DAL
 {
-	public class PersonRepository : IPersonRepository
+	public class PersonRepository : BaseRepository, IPersonRepository
 	{
-		readonly DbContextOptions<ApplicationContext> options = new DbContextOptions<ApplicationContext>();
 		public async Task<IEnumerable<Person>> Find()
 		{
 			IEnumerable<Person> results = Enumerable.Empty<Person>();
@@ -38,6 +37,7 @@ namespace AareonTechnicalTest.DAL
 			using (var context = new ApplicationContext(options))
 			{
 				var _ = await context.Persons.AddAsync(person);
+				SaveAudit(context.ChangeTracker.DebugView.LongView);
 				var state = await context.SaveChangesAsync();
 				result = state > 0 ? true : false;
 			}
@@ -51,6 +51,7 @@ namespace AareonTechnicalTest.DAL
 			using (var context = new ApplicationContext(options))
 			{
 				var _ = context.Persons.Update(person);
+				SaveAudit(context.ChangeTracker.DebugView.LongView);
 				var state = await context.SaveChangesAsync();
 				result = state > 0 ? true : false;
 			}
@@ -65,6 +66,7 @@ namespace AareonTechnicalTest.DAL
 			using (var context = new ApplicationContext(options))
 			{
 				var _ = context.Persons.Remove(person);
+				SaveAudit(context.ChangeTracker.DebugView.LongView);
 				var state = await context.SaveChangesAsync();
 				result = state > 0 ? true : false;
 			}

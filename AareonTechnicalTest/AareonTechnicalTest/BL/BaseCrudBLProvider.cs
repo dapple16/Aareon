@@ -1,47 +1,35 @@
 ﻿using AareonTechnicalTest.DAL;
 using AareonTechnicalTest.Helper;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace AareonTechnicalTest.BL
 {
-	public abstract class BaseCrudBLProvider<TModel, TEntity> : ICrudBLProvider<TModel>
+	public abstract class BaseCrudBLProvider<TModel, TEntity> : BaseReadOnlyCrudBLProvider<TModel, TEntity>, ICrudBLProvider<TModel>
 	{
-		protected IRepository<TEntity> Repository;
-
-		public async Task<IEnumerable<TModel>> Get()
+		private IRepository<TEntity> _repository;
+		public BaseCrudBLProvider(IRepository<TEntity> repository) : base(repository)
 		{
-			var data = await Repository.Find();
-			var value = data.Select(s => AutoMapperHelper.Map<TEntity, TModel>(s));
-			return value;
-		}
-
-		public async Task<TModel> Get(int id)
-		{
-			var data = await Repository.FindById(id);
-			var value = AutoMapperHelper.Map<TEntity, TModel>(data);
-			return value;
+			_repository = repository;
 		}
 
 		public async Task<bool> Put(int id, TModel model)
 		{
-			var existingRecord = await Repository.FindById(id);
+			var existingRecord = await _repository.FindById(id);
 			var toBeSavedRecord = AutoMapperHelper.Map(model, existingRecord);
-			var value = await Repository.Update(toBeSavedRecord);
+			var value = await _repository.Update(toBeSavedRecord);
 			return value;
 		}
 
 		public async Task<bool> Create(TModel model)
 		{
-			var result = await Repository.Add(AutoMapperHelper.Map<TModel, TEntity>(model));
+			var result = await _repository.Add(AutoMapperHelper.Map<TModel, TEntity>(model));
 			return result;
 		}
 
 		public virtual async Task<bool> Delete(int id)
 		{
-			var existingRecord = await Repository.FindById(id); 
-			var value = await Repository.Remove(existingRecord);
+			var existingRecord = await _repository.FindById(id); 
+			var value = await _repository.Remove(existingRecord);
 			return value;
 		}
 	}
