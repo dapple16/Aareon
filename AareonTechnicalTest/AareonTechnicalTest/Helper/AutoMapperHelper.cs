@@ -17,6 +17,7 @@ namespace AareonTechnicalTest.Helper
 				cfg.CreateMap<TicketModel, Ticket>();
 				cfg.CreateMap<Person, PersonModel>();
 				cfg.CreateMap<PersonModel, Person>();
+				cfg.CreateMap<Audit, AuditModel>();
 			});
 
 			Mapper = new Mapper(config);

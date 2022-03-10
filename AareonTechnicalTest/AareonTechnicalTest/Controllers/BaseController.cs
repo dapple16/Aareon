@@ -7,42 +7,13 @@ namespace AareonTechnicalTest.Controllers
 {
 	[Route("[controller]")]
 	[ApiController]
-	public abstract class BaseController<T> : ControllerBase
+	public abstract class BaseController<T> : BaseReadOnlyController<T>
 	{
 		private readonly ICrudBLProvider<T> _crudBlProvider;
 
-		public BaseController(ICrudBLProvider<T> crudBlProvider)
+		public BaseController(ICrudBLProvider<T> crudBlProvider): base(crudBlProvider)
 		{
 			_crudBlProvider = crudBlProvider;
-		}
-
-		[HttpGet]
-		public async Task<IActionResult> Get()
-		{
-			try
-			{
-				var model = await _crudBlProvider.Get();
-				return Ok(model);
-			}catch (Exception)
-			{
-				// Log the exception on the logger.
-			}
-			return NoContent();
-		}
-
-		[HttpGet("{id}")]
-		public async Task<IActionResult> GetById(int id)
-		{
-			try
-			{
-				var model = await _crudBlProvider.Get(id);
-				return Ok(model);
-			}
-			catch (Exception)
-			{
-				// Log the exception on the logger.
-			}
-			return NoContent();
 		}
 
 		[HttpPut("update/{id}")]

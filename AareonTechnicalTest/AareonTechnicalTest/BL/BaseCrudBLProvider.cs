@@ -1,29 +1,10 @@
-﻿using AareonTechnicalTest.DAL;
-using AareonTechnicalTest.Helper;
-using System.Collections.Generic;
-using System.Linq;
+﻿using AareonTechnicalTest.Helper;
 using System.Threading.Tasks;
 
 namespace AareonTechnicalTest.BL
 {
-	public abstract class BaseCrudBLProvider<TModel, TEntity> : ICrudBLProvider<TModel>
+	public abstract class BaseCrudBLProvider<TModel, TEntity> : BaseReadOnlyCrudBLProvider<TModel, TEntity>, ICrudBLProvider<TModel>
 	{
-		protected IRepository<TEntity> Repository;
-
-		public async Task<IEnumerable<TModel>> Get()
-		{
-			var data = await Repository.Find();
-			var value = data.Select(s => AutoMapperHelper.Map<TEntity, TModel>(s));
-			return value;
-		}
-
-		public async Task<TModel> Get(int id)
-		{
-			var data = await Repository.FindById(id);
-			var value = AutoMapperHelper.Map<TEntity, TModel>(data);
-			return value;
-		}
-
 		public async Task<bool> Put(int id, TModel model)
 		{
 			var existingRecord = await Repository.FindById(id);

@@ -8,7 +8,6 @@ namespace AareonTechnicalTest.DAL
 {
 	public class PersonRepository : BaseRepository, IPersonRepository
 	{
-		readonly DbContextOptions<ApplicationContext> options = new DbContextOptions<ApplicationContext>();
 		public async Task<IEnumerable<Person>> Find()
 		{
 			IEnumerable<Person> results = Enumerable.Empty<Person>();

@@ -11,4 +11,13 @@ namespace AareonTechnicalTest.BL
 			Repository = personRepository;
 		}
 	}
+
+
+	public class AuditCrudBLProvider : BaseReadOnlyCrudBLProvider<AuditModel, Audit>
+	{
+		public AuditCrudBLProvider(IAuditRepository auditRepository)
+		{
+			Repository = (IRepository<Audit>)auditRepository;
+		}
+	}
 }

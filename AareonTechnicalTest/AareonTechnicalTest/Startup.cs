@@ -39,6 +39,8 @@ namespace AareonTechnicalTest
             services.AddScoped<INoteRepository, NoteRepository>();
             services.AddScoped<ITicketRepository, TicketRepository>();
             services.AddScoped<IPersonRepository, PersonRepository>();
+            services.AddScoped<IAuditRepository, AuditRepository>();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -8,7 +8,6 @@ namespace AareonTechnicalTest.DAL
 {
 	public class TicketRepository : BaseRepository, ITicketRepository
 	{
-		DbContextOptions<ApplicationContext> options = new DbContextOptions<ApplicationContext>();
 		public async Task<IEnumerable<Ticket>> Find()
 		{
 			IEnumerable<Ticket> tickets = Enumerable.Empty<Ticket>();
